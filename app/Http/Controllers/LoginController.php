@@ -8,7 +8,7 @@ class LoginController extends Controller
 {
     public function admin()
     {
-        return view('login-form');
+        return view('admin.login');
     }
 
     public function mahasiswa()
