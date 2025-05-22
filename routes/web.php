@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
-
+use Illuminate\Http\Request;
 
 
 // Halaman Login 1 (Pilihan role)
@@ -42,6 +42,37 @@ Route::get('/tentang', function () {
 Route::get('/profil', function () {
     return view('profil');
 })->name('profil');
+
+Route::get('/ganti-password', function (){
+    return view('ganti-password');
+})->name('ganti-password');
+
+Route::post('/ganti-password', function (Request $request) {
+    // Validasi password
+    $request->validate([
+        'old_password' => 'required',
+        'new_password' => [
+            'required',
+            'string',
+            'min:8',
+            'regex:/[A-Z]/',  // setidaknya satu huruf kapital
+            'regex:/[0-9]/'   // setidaknya satu angka
+        ],
+        'confirm_password' => 'required|same:new_password',
+    ]);
+
+    // Cek apakah password lama benar
+    if (!Hash::check($request->old_password, auth()->user()->password)) {
+        return back()->withErrors(['old_password' => 'Kata sandi lama salah']);
+    }
+
+    // Update password
+    auth()->user()->update([
+        'password' => Hash::make($request->new_password)
+    ]);
+
+    return redirect()->route('profil')->with('success', 'Kata sandi berhasil diubah!');
+})->name('profil.ganti-password.update');
 
 Route::get('/tugas', function () {
     return view('tugas');

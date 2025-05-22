@@ -18,4 +18,6 @@ class AuthController extends Controller
 
         return back()->withErrors(['login' => 'NIM atau Password salah.']);
     }
+
+    
 }
