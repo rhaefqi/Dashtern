@@ -8,7 +8,7 @@
             <!-- Logo dan Nama -->
             <div class="flex items-center mb-10 ml-0">
                 <div class="w-10 h-10 scale-150">
-                    <img src="Logo-Dashtern.png" alt="Logo" class="w-full h-full object-contain" />
+                    <img src="/image/logo.png" alt="Logo" class="w-full h-full object-contain" />
                 </div>
                 <span class="ml-1 text-2xl font-bold text-[#145A5A]">Dashtern</span>
             </div>

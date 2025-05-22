@@ -13,7 +13,7 @@ class AuthController extends Controller
 
         // Validasi dummy untuk demo
         if ($nim == '123456' && $password == 'password') {
-            return redirect()->route('dashboard'); // Buat route dashboard jika perlu
+            return redirect()->route('beranda'); // Buat route dashboard jika perlu
         }
 
         return back()->withErrors(['login' => 'NIM atau Password salah.']);
