@@ -11,13 +11,13 @@ Route::get('/', function () {
     return view('login-select');
 })->name('login');
 
-// Halaman Login Form Admin
-Route::get('/login/admin', [LoginController::class, 'admin'])->name('login.admin');
-
-// Halaman Login Form Mahasiswa
+// Halaman Form Login Mahasiswa
 Route::get('/login/mahasiswa', [LoginController::class, 'mahasiswa'])->name('login.mahasiswa');
+Route::post('/login/mahasiswa', [AuthController::class, 'login'])->name('auth.login');
 
-Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+// Halaman Form Login Admin
+Route::get('/login/admin', [LoginController::class, 'admin'])->name('login.admin');
+Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('auth.login.admin');
 
 Route::get('/beranda', function () {
     return view('beranda');
