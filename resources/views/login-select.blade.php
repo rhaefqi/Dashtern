@@ -1,4 +1,3 @@
-<!-- resources/views/login.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,14 +16,14 @@
         <!-- Tombol Pilihan -->
         <div class="flex justify-center gap-4">
             <a href="{{ route('login.admin') }}"
-               class="bg-white text-black px-6 py-2 rounded-xl font-semibold hover:bg-gray-200 transition">
+            class="bg-white text-black px-6 py-2 rounded-xl font-semibold hover:bg-gray-200 transition">
                 Admin
             </a>
             <a href="{{ route('login.mahasiswa') }}"
-               class="bg-green-500 text-white px-6 py-2 rounded-xl font-semibold hover:bg-green-600 transition">
+            class="bg-green-500 text-white px-6 py-2 rounded-xl font-semibold hover:bg-green-600 transition">
                 Mahasiswa
             </a>
-        </div>
+
     </div>
 
 </body>

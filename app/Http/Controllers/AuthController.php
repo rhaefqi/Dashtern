@@ -18,4 +18,17 @@ class AuthController extends Controller
 
         return back()->withErrors(['login' => 'NIM atau Password salah.']);
     }
+    public function loginAdmin(Request $request)
+    {
+    $kode = $request->input('kode_admin');
+    $password = $request->input('password');
+
+    // Validasi dummy
+    if ($kode == 'admin123' && $password == 'password') {
+        return redirect()->route('beranda');
+    }
+
+    return back()->withErrors(['login' => 'Kode Admin atau Password salah.']);
+    }
+
 }
