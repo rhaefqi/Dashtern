@@ -25,10 +25,11 @@ class AuthController extends Controller
 
     // Validasi dummy
     if ($kode == 'admin123' && $password == 'password') {
-        return redirect()->route('beranda');
+    return redirect()->route('admin.beranda');
     }
 
     return back()->withErrors(['login' => 'Kode Admin atau Password salah.']);
     }
+    
 
 }
