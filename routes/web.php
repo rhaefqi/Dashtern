@@ -5,7 +5,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 
-
 // Halaman Login 1 (Pilihan role)
 Route::get('/', function () {
     return view('login-select');
@@ -19,9 +18,18 @@ Route::post('/login/mahasiswa', [AuthController::class, 'login'])->name('auth.lo
 Route::get('/login/admin', [LoginController::class, 'admin'])->name('login.admin');
 Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('auth.login.admin');
 
+// Halaman Beranda Admin (tanpa controller)
+Route::get('/admin/beranda', function () {
+    return view('admin.beranda'); 
+})->name('admin.beranda');
+
 Route::get('/beranda', function () {
     return view('beranda');
 })->name('beranda');
+
+Route::get('admin/kelas', function () {
+    return view('admin.kelas');
+})->name('admin/kelas');
 
 Route::get('/kelas', function () {
     return view('kelas');
