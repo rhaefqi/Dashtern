@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\PengumumanController;
 
 // Halaman Login 1 (Pilihan role)
 Route::get('/', function () {
@@ -27,13 +29,25 @@ Route::get('/beranda', function () {
     return view('beranda');
 })->name('beranda');
 
-Route::get('admin/kelas', function () {
-    return view('admin.kelas');
-})->name('admin/kelas');
+// Route::get('admin/kelas', function () {
+//     return view('admin.kelas');
+// })->name('admin/kelas');
+
+// baruuuu
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
+    Route::get('/kelas/create', [KelasController::class, 'create'])->name('kelas.create');
+});
+
+Route::get('/admin/kelas/{id}', function ($id) {
+    return view('admin.detailkelas');
+})->name('admin.kelas.show');
 
 Route::get('/kelas', function () {
     return view('kelas');
 })->name('kelas');
+
+Route::resource('pengumuman', PengumumanController::class);
 
 Route::get('/progres', function () {
     return view('progres');
