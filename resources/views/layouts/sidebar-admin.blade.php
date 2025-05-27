@@ -45,7 +45,7 @@
                     </svg>
                     <span>Tentang</span>
                 </a>
-                <a href="/profil"  class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->is('admin/profil') ? 'bg-[#145A5A] text-white shadow' : 'text-black hover:bg-gray-100' }}">
+                <a href="/admin/profil"  class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->is('admin/profil') || request()->is('admin/ganti-password*') ? 'bg-[#145A5A] text-white shadow' : 'text-black hover:bg-gray-100' }}">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M12 12a5 5 0 10-5-5 5 5 0 005 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z" />

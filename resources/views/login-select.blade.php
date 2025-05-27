@@ -9,7 +9,7 @@
       style="background-image: url('/image/bg.jpg');">
 
     <div class="bg-white/30 backdrop-blur-lg rounded-2xl shadow-xl p-10 text-center max-w-md w-full">
-        <img src="/image/logo.png" alt="Dashtern Logo" class="mx-auto mb-4 w-24 h-24">
+        <img src="/image/logo.png" alt="Dashtern Logo" class="mx-auto mb-2 w-24 h-24">
         <h1 class="text-4xl font-bold text-white mb-2">Dashtern</h1>
         <p class="text-white mb-6">Masuk sebagai:</p>
 
