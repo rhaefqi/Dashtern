@@ -68,3 +68,4 @@ Route::post('/form/submit', function (Request $request) {
     // Untuk sekarang kita cukup redirect kembali dengan pesan sukses
     return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
 })->name('tugas.submit');
+
