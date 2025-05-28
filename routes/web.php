@@ -1,13 +1,15 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\KelasController;
-use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TugasController;
+use App\Http\Controllers\PengumumanController;
 
 // Halaman Login 1 (Pilihan role)
 Route::get('/', function () {
@@ -70,7 +72,7 @@ Route::get('/kelas', function () {
 
 Route::resource('pengumuman', PengumumanController::class);
 // Route::post('/tugas', [TugasController::class, 'store'])->name('tugas.store');
-Route::post('/tugas/store', [TugasController::class, 'store'])->name('tugas.store');
+// Route::post('/tugas/store', [TugasController::class, 'store'])->name('tugas.store');
 
 Route::get('/progres', function () {
     return view('progres');
