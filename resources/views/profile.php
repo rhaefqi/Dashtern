@@ -76,7 +76,7 @@ $progress = 70; // dalam persen
     .progress-fill {
       height: 100%;
       background: #00695c;
-      width: <?= $progress ?>%;
+      width: <?= $progress ?>;
     }
     .btn {
       background: #00332f;

@@ -145,7 +145,7 @@
         <div class="bg-[#E8F0EF] w-full max-w-md mx-auto p-6 rounded-xl shadow-lg">
             <h2 class="text-xl font-bold text-center mb-4">Buat Tugas</h2>
 
-            <form action="{{ route('tugas.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 {{-- Judul Tugas --}}
