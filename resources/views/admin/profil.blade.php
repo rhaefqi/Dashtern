@@ -1,14 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.app-admin')
 
-@section('title', 'Profil')
+@section('title', 'admin|profil')
 
 @section('content')
 
 <?php
-$nama = "Reinata Carolina";
-$nim = "221401021";
-$prodi = "Ilmu Komputer";
-$fakultas = "Ilmu Komputer dan Teknologi Informasi"
+$nama = "ADMIN";
 ?>
 <h1 class="text-2xl font-semibold mb-4">Profil</h1>
 <div class="max-w-4xl mx-auto py-10 px-4">
@@ -23,13 +20,10 @@ $fakultas = "Ilmu Komputer dan Teknologi Informasi"
         </div>
         <div class="text-gray-700 text-sm">
           <p class="ml-2"><span class="font-semibold">Nama</span> : <?= $nama ?></p>
-          <p class="mt-2 ml-2"><span class="font-semibold">NIM</span> : <?= $nim ?></p>
-          <p class="mt-2 ml-2"><span class="font-semibold">Prodi</span> : <?= $prodi ?> </p>
-          <p class="mt-2 ml-2"><span class="font-semibold">Fakultas</span> : <?= $fakultas ?> </p>
         </div>
       </div>
       
-        <a href="{{ route('ganti-password') }}" class="bg-[#00332f] text-white text-sm text-center px-4 py-2 rounded-3xl mr-10 h-10 hover:bg-[#005046] transition">
+        <a href="{{ route('admin/ganti-password') }}" class="bg-[#00332f] text-white text-sm text-center px-4 py-2 rounded-3xl mr-10 h-10 hover:bg-[#005046] transition">
         Ganti Kata Sandi
         </a>
     </div>
