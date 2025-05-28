@@ -1,6 +1,4 @@
-
-
-    <!-- Layout Utama -->
+ <!-- Layout Utama -->
     <div class="flex h-screen">
 
         <!-- Sidebar -->
@@ -21,7 +19,7 @@
                     </svg>
                     <span>Beranda</span>
                 </>
-                <a href="/kelas" class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->is('kelas*') || request()->is('tugas*') || request()->is('form*') ? 'bg-[#145A5A] text-white shadow' : 'text-black hover:bg-gray-100' }}">
+                <a href="/gabung" class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->is('kelas*') || request()->is('gabung*') || request()->is('tugas*') || request()->is('form*') ? 'bg-[#145A5A] text-white shadow' : 'text-black hover:bg-gray-100' }}">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
                             d="M4.5 2.25a.75.75 0 0 0 0 1.5v16.5h-.75a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5h-.75V3.75a.75.75 0 0 0 0-1.5h-15ZM9 6a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm-.75 3.75A.75.75 0 0 1 9 9h1.5a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM9 12a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm3.75-5.25A.75.75 0 0 1 13.5 6H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM13.5 9a.75.75 0 0 0 0 1.5H15A.75.75 0 0 0 15 9h-1.5Zm-.75 3.75a.75.75 0 0 1 .75-.75H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM9 19.5v-2.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 9 19.5Z"
@@ -52,7 +50,7 @@
                     </svg>
                     <span>Tentang</span>
                 </a>
-                <a href="/profil"  class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->is('profil') ? 'bg-[#145A5A] text-white shadow' : 'text-black hover:bg-gray-100' }}">
+                <a href="/profil"  class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->is('profil') || request()->is('ganti-password*') ? 'bg-[#145A5A] text-white shadow' : 'text-black hover:bg-gray-100' }}">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M12 12a5 5 0 10-5-5 5 5 0 005 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z" />

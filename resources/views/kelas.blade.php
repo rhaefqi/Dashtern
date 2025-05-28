@@ -3,7 +3,7 @@
 @section('title', 'Kelas')
  
 @section('content')
-    <h1 class="text-2xl font-semibold mb-4">Daftar Kelas</h1>
+    <h1 class="text-2xl font-semibold mb-4">Kelas</h1>
 
     <div class="grid grid-cols-1 gap-4 mt-6">
         <a href="tugas" class="block bg-white rounded-xl shadow p-4 hover:bg-gray-100 transition">
