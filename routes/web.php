@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\TugasController;
@@ -21,11 +22,17 @@ Route::post('/login/mahasiswa', [AuthController::class, 'login'])->name('auth.lo
 Route::get('/login/admin', [LoginController::class, 'admin'])->name('login.admin');
 Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('auth.login.admin');
 
-// Halaman Beranda Admin (tanpa controller)
+// Halaman Beranda Admin (tanpa controller
 Route::get('/admin/beranda', function () {
     return view('admin.beranda'); 
 })->name('admin.beranda');
 
+Route::get('/panduan', [PanduanController::class, 'indexMahasiswa']);
+Route::get('/admin/panduan', [PanduanController::class, 'indexAdmin']);
+Route::post('/admin/panduan', [PanduanController::class, 'store']);
+Route::delete('/admin/panduan/{id}', [PanduanController::class, 'destroy']);
+
+//Halaman Mahasiswa
 Route::get('/beranda', function () {
     return view('beranda');
 })->name('beranda');
