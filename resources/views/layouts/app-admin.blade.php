@@ -14,7 +14,7 @@
     <div class="flex h-screen">
 
         <!-- Sidebar -->
-        @include('layouts.sidebar')
+        @include('layouts.sidebar-admin')
 
         <!-- Konten Utama -->
         <main class="flex-1 p-6 overflow-y-auto">

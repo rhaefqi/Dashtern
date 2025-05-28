@@ -1,4 +1,3 @@
-<!-- resources/views/login.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,21 +9,21 @@
       style="background-image: url('/image/bg.jpg');">
 
     <div class="bg-white/30 backdrop-blur-lg rounded-2xl shadow-xl p-10 text-center max-w-md w-full">
-        <img src="/image/logo.png" alt="Dashtern Logo" class="mx-auto mb-4 w-24 h-24">
+        <img src="/image/logo.png" alt="Dashtern Logo" class="mx-auto mb-2 w-24 h-24">
         <h1 class="text-4xl font-bold text-white mb-2">Dashtern</h1>
         <p class="text-white mb-6">Masuk sebagai:</p>
 
         <!-- Tombol Pilihan -->
         <div class="flex justify-center gap-4">
             <a href="{{ route('login.admin') }}"
-               class="bg-white text-black px-6 py-2 rounded-xl font-semibold hover:bg-gray-200 transition">
+            class="bg-white text-black px-6 py-2 rounded-xl font-semibold hover:bg-gray-200 transition">
                 Admin
             </a>
             <a href="{{ route('login.mahasiswa') }}"
-               class="bg-green-500 text-white px-6 py-2 rounded-xl font-semibold hover:bg-green-600 transition">
+            class="bg-green-500 text-white px-6 py-2 rounded-xl font-semibold hover:bg-green-600 transition">
                 Mahasiswa
             </a>
-        </div>
+
     </div>
 
 </body>
