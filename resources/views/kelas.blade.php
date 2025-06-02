@@ -14,7 +14,6 @@
                 </div>
             </div>
         </a>
-
         <!-- Tambahkan box kelas lain di sini -->
     </div>
 @endsection
