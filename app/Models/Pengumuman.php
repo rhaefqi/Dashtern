@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengumuman extends Model
 {
+    protected $table = 'pengumuman';
+    protected $fillable = ['judul', 'isi', 'kode_kelas'];
     use HasFactory;
 }

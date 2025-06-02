@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('pengumuman', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('lampiran');
+            $table->string('isi');
+            $table->string('lampiran')->nullable();
+            $table->string('kode_kelas');
+            $table->foreign('kode_kelas')->references('kode_kelas')->on('kelas')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengumumen');
+        Schema::dropIfExists('pengumuman');
     }
 };

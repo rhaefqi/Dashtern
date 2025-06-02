@@ -4,12 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TugasController;
 use App\Http\Controllers\PengumumanController;
+use App\Models\Pengumuman;
 
 // Halaman Login 1 (Pilihan role)
 Route::get('/', function () {
@@ -55,11 +55,17 @@ Route::get('/admin/tentang', function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
     Route::get('/kelas/create', [KelasController::class, 'create'])->name('kelas.create');
+    Route::post('/kelas', [KelasController::class, 'store'])->name('kelas.store');
+    Route::delete('/kelas/{id}', [KelasController::class, 'destroy'])->name('kelas.delete');
+
+    Route::post('pengumuman', [PengumumanController::class, 'store'])->name('pengumuman.store');
+    Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.delete');
+
+    Route::post('/tugas', [TugasController::class, 'store'])->name('tugas.store');
+    Route::delete('/tugas/{id}', [TugasController::class, 'destroy'])->name('tugas.delete');
 });
 
-Route::get('/admin/kelas/{id}', function ($id) {
-    return view('admin.detailkelas');
-})->name('admin.kelas.show');
+Route::get('/admin/kelas/{kode}', [KelasController::class, 'detail'])->name('admin.kelas.show');
 
 Route::get('/gabung', function () {
     return view('gabung');
@@ -156,13 +162,13 @@ Route::post('admin/ganti-password', function (Request $request) {
 })->name('admin/profil.ganti-password.update');
 
 
-Route::get('/tugas', function () {
-    return view('tugas');
-})->name('tugas');
+// Route::get('/tugas', function () {
+//     return view('tugas');
+// })->name('tugas');
 
-Route::get('/tugas/{id}', function ($id) {
-    return view('detail', ['id' => $id]);
-})->name('tugas.detail');
+// Route::get('/tugas/{id}', function ($id) {
+//     return view('detail', ['id' => $id]);
+// })->name('tugas.detail');
 
 // Halaman form pengumpulan tugas
 Route::get('/form', function () {

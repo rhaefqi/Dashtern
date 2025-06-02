@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tugas_kelas', function (Blueprint $table) {
-            $table->char('kode_tugas')->primary();
+            $table->id();
             $table->string('nama');
             $table->string('deskripsi');
             $table->date('tenggat');
-            $table->string('lampiran');
+            $table->string('lampiran')->nullable();
             $table->string('kode_kelas');
             $table->foreign('kode_kelas')->references('kode_kelas')->on('kelas')->onDelete('restrict')->onUpdate('cascade');
-            $table->enum('status', ['akuisi', 'sosialisasi', 'kunjungan', 'video', 'absensi', 'laporan']);
+            $table->enum('status', ['akuisisi_pu', 'akuisisi_bpu', 'kunjungan_pu', 'kunjungan_bpu', 'sosialisasi', 'video', 'absensi', 'laporan']);
             $table->timestamps();
         });
     }
