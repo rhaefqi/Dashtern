@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LoginController;
