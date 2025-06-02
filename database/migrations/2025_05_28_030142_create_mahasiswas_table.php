@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('universitas');
             $table->string('fakultas');
             $table->string('prodi');
+            $table->string('kelompok');
             $table->string('kode_kelas')->nullable();
             $table->foreign('kode_kelas')->references('kode_kelas')->on('kelas')->onDelete('restrict')->onUpdate('cascade');
             $table->unsignedInteger('user_id')->nullable();
