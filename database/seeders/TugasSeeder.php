@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\TugasKelas;
@@ -9,9 +8,6 @@ use Illuminate\Database\Seeder;
 
 class TugasSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         TugasKelas::create([

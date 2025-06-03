@@ -84,9 +84,6 @@ Route::get('/progres', function () {
     return view('progres');
 })->name('progres');
 
-Route::get('/panduan', function () {
-    return view('panduan');
-})->name('panduan');
 
 Route::get('/tentang', function () {
     return view('tentang');

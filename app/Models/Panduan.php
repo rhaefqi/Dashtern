@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Panduan extends Model
 {
     use HasFactory;
+
+     protected $fillable = ['judul', 'link_drive'];
 }
