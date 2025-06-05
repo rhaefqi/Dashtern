@@ -15,37 +15,46 @@
       </svg>
     </button>
 
-    
-
   <!-- Modal -->
   <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 hidden z-50">
     <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm">
       <h2 class="text-xl font-bold text-center mb-4">Gabung kelas</h2>
-      
-      <label for="kodeKelas" class="block mb-2 text-gray-700">Masukkan kode kelas:</label>
-      <input id="kodeKelas" type="text" placeholder="Contoh: ABC123"
-             class="w-full px-4 py-2 mb-4 rounded-xl bg-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-600"/>
+        <form method="POST" action="{{ route('kelas.join') }}">
+          @csrf
+          <label for="kodeKelas" class="block mb-2 text-gray-700">Masukkan kode kelas:</label>
+          <input name="kode_kelas" type="text" placeholder="Contoh: ABC123"
+                class="w-full px-4 py-2 mb-4 rounded-xl bg-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-600"/>
 
-      <button onclick="joinClass()" class="w-full bg-emerald-900 text-white py-2 rounded-xl font-semibold hover:bg-emerald-800 transition">
-        Gabung
-      </button>
+          <button type="submit" class="w-full bg-emerald-900 text-white py-2 rounded-xl font-semibold hover:bg-emerald-800 transition">
+              Gabung
+          </button>
+      </form>
     </div>
   </div>
 
+  @if(session('success'))
+  <script>
+      Swal.fire({
+          icon: 'success',
+          title: 'Berhasil',
+          text: '{{ session('success') }}',
+      })
+  </script>
+  @endif
+
+  @if(session('error'))
+  <script>
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '{{ session('error') }}',
+      })
+  </script>
+  @endif
+  
   <script>
     function openModal() {
       document.getElementById("modal").classList.remove("hidden");
-    }
-
-    function joinClass() {
-      const kode = document.getElementById("kodeKelas").value.trim();
-      if (kode === "") {
-        alert("Kode kelas tidak boleh kosong!");
-        return;
-      }
-
-      // Simulasi validasi dan redirect
-      window.location.href = "/kelas"; // arahkan ke halaman kelas
     }
   </script>
 @endsection

@@ -26,19 +26,28 @@ class KelasController extends Controller
         return view('admin.kelas', compact('kelas'));
     }
 
+    public function indexMahasiswa()
+    {
+       $mahasiswa = Mahasiswa::where('user_id', auth()->id())->first();
+        if (!$mahasiswa) {
+            return redirect()->back()->with('error', 'Mahasiswa tidak ditemukan');
+        }
+        $kelas = Kelas::where('kode_kelas', $mahasiswa->kode_kelas)->first();
+        return view('kelas', compact('kelas'));
+    }
+
     public function detail($kode)
     {
         $dataNilai = $this->nilaiMahasiswa4BulanChart($kode);
         $mahasiswa = $this->nilaiMahasiswa4Bulan($kode);
-        $tugas = TugasKelas::where('kode_kelas', $kode)->get();
-        $pengumuman = Pengumuman::where('kode_kelas', $kode)->get();
-        $kelas = Kelas::where('kode_kelas', $kode)->first();
+        $kelas = Kelas::with(['pengumuman', 'tugas'])->where('kode_kelas', $kode)->first();
         return view('admin.detailkelas', compact('kelas', 'pengumuman', 'tugas', 'mahasiswa'));
     }
 
     public function nilaiMahasiswa4BulanChart($kode_kelas)
     {
-        $tugas = TugasMahasiswa::select('nim', 'status', 'jumlah', 'created_at')->get();
+        $mahasiswas = Mahasiswa::where('kode_kelas', $kode_kelas)->pluck('nim');
+        $tugas = TugasMahasiswa::whereIn('nim', $mahasiswas)->get();
 
         $nilaiMahasiswa = [];
 
@@ -129,6 +138,11 @@ class KelasController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_kelas' => 'required|string|max:255',
+            'durasi' => 'required|string|max:50'
+        ]);
+
         $kelas = new Kelas();
 
         $kode_dasar = $this->buatKodeKelas($request->input('nama_kelas'));

@@ -26,6 +26,12 @@ class TugasController extends Controller
         return redirect()->back()->with('success', 'Tugas berhasil dibuat!');
     }
 
+    public function detail($id)
+    {
+        $tugas = TugasKelas::findOrFail($id);
+        return view('tugas.detail', compact('tugas'));
+    }       
+
     public function destroy ($id){
         $tugas = TugasKelas::findOrFail($id);
         $tugas->delete();

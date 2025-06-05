@@ -7,7 +7,9 @@
 
     <!-- Breadcrumb -->
     <div class="text-2xl font-semibold mb-6">
-        Tugas &gt; <span class="text-[#145A5A]">Universitas Sumatera Utara</span> &gt; <span class="text-[#145A5A]">Akuisisi Bulan Ke-1</span>
+        Tugas &gt; 
+        <span class="text-[#145A5A]">{{ $tugas->tugasKelas->nama ?? 'Nama Kelas' }}</span> &gt; 
+        <span class="text-[#145A5A]">{{ $tugas->judul }}</span>
     </div>
 
     <!-- Box Detail Tugas -->
@@ -16,12 +18,12 @@
         <!-- Header: Judul dan Deadline -->
         <div class="flex justify-between items-start">
             <div>
-                <h2 class="text-xl font-bold text-[#145A5A]">Akuisisi Bulan Ke-1</h2>
-                <p class="text-sm text-gray-600 mt-1">20 Mei 2025</p>
-                <p class="text-sm text-gray-600">100 poin</p>
+                <h2 class="text-xl font-bold text-[#145A5A]">{{ $tugas->judul }}</h2>
+                <p class="text-sm text-gray-600 mt-1">{{ \Carbon\Carbon::parse($tugas->tanggal_mulai)->format('d M Y') }}</p>
+                <p class="text-sm text-gray-600">{{ $tugas->poin }} poin</p>
             </div>
             <div class="text-right">
-                <p class="text-sm text-red-600 font-bold">Deadline: 28 Mei 2025</p>
+                <p class="text-sm text-red-600 font-bold">Deadline: {{ \Carbon\Carbon::parse($tugas->deadline)->format('d M Y') }}</p>
             </div>
         </div>
 
@@ -29,17 +31,16 @@
         <div>
             <h3 class="font-semibold text-[#145A5A] mb-1">Deskripsi Tugas:</h3>
             <p class="text-gray-600">
-                Mahasiswa diminta untuk melakukan akuisisi data dari sumber yang telah ditentukan, kemudian membersihkannya, dan menyusun laporan awal dalam bentuk PDF. Sertakan juga sumber data dan langkah-langkah yang dilakukan.
+                {{ $tugas->deskripsi }}
             </p>
         </div>
 
         <!-- Tombol Kumpulkan -->
         <div class="pt-4">
             <a href="{{ route('tugas.form') }}"
-   class="block w-full text-center bg-[#145A5A] hover:bg-[#0e3e3e] text-white font-semibold px-6 py-3 rounded-md transition">
-   Kumpulkan Tugas
-</a>
-
+                class="block w-full text-center bg-[#145A5A] hover:bg-[#0e3e3e] text-white font-semibold px-6 py-3 rounded-md transition">
+                Kumpulkan Tugas
+            </a>
         </div>
     </div>
 </div>
