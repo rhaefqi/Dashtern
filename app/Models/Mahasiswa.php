@@ -18,5 +18,6 @@ class Mahasiswa extends Model
         'fakultas',
         'prodi',
         'kelompok',
+        'kode_kelas',
     ];
 }

@@ -10,7 +10,7 @@
             <div class="flex items-center space-x-4">
                 <img src="{{ asset('image/logo-univ.png') }}" alt="Logo Universitas" class="w-12 h-12 object-contain">
                 <div>
-                    <h2 class="text-xl font-bold">Universitas Sumatera Utara</h2>
+                    <h2 class="text-xl font-bold">{{ $kelas->nama ?? 'Nama kelas tidak ditemukan' }}</h2>
                 </div>
             </div>
         </a>

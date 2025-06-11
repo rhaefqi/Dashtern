@@ -10,10 +10,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TugasController;
+use App\Http\Controllers\PengumumanController;
+use App\Models\Pengumuman;
+use App\Http\Controllers\MahasiswaController
 use App\Http\Controllers\PanduanController;
-use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Auth;
 
+
+  
+Route::post('/gabung-kelas', [MahasiswaController::class, 'joinClass'])->name('kelas.join');
 // Halaman Login 1 (Pilihan role)
 Route::get('/', function () {
     return view('login-select');
@@ -66,7 +71,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
     Route::get('/kelas/create', [KelasController::class, 'create'])->name('kelas.create');
     Route::post('/kelas', [KelasController::class, 'store'])->name('kelas.store');
-    Route::delete('/kelas/{id}', [KelasController::class, 'destroy'])->name('kelas.delete');
+    Route::delete('/kelas/{kode_kelas}', [KelasController::class, 'destroy'])->name('kelas.delete');
 
     Route::post('pengumuman', [PengumumanController::class, 'store'])->name('pengumuman.store');
     Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.delete');
@@ -74,6 +79,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/tugas', [TugasController::class, 'store'])->name('tugas.store');
     Route::delete('/tugas/{id}', [TugasController::class, 'destroy'])->name('tugas.delete');
 });
+
+Route::get('/kelas', [KelasController::class, 'indexMahasiswa'])->name('kelas.indexMahasiswa');
 
 Route::get('/admin/kelas/{kode}', [KelasController::class, 'detail'])->name('admin.kelas.show');
 
@@ -87,9 +94,7 @@ Route::get('/kelas', function () {
 })->name('kelas');
 
 Route::resource('pengumuman', PengumumanController::class);
-// Route::post('/tugas', [TugasController::class, 'store'])->name('tugas.store');
-// Route::post('/tugas/store', [TugasController::class, 'store'])->name('tugas.store');
-
+Route::post('/tugas', [TugasController::class, 'store'])->name('tugas.store');
 Route::get('/progres', function () {
     return view('progres');
 })->name('progres');
@@ -176,6 +181,10 @@ Route::post('admin/ganti-password', function (Request $request) {
 // Route::get('/tugas/{id}', function ($id) {
 //     return view('detail', ['id' => $id]);
 // })->name('tugas.detail');
+
+// routes/web.php
+Route::get('/tugas/{id}', [TugasController::class, 'detail'])->name('tugas.detail');
+
 
 // Halaman form pengumpulan tugas
 Route::get('/form', function () {
