@@ -84,9 +84,6 @@ Route::get('/progres', function () {
     return view('progres');
 })->name('progres');
 
-Route::get('/panduan', function () {
-    return view('panduan');
-})->name('panduan');
 
 Route::get('/tentang', function () {
     return view('tentang');
@@ -187,3 +184,4 @@ Route::post('/form/submit', function (Request $request) {
     // Untuk sekarang kita cukup redirect kembali dengan pesan sukses
     return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
 })->name('tugas.submit');
+
