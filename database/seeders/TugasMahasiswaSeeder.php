@@ -39,6 +39,7 @@ class TugasMahasiswaSeeder extends Seeder
             'jumlah' => 2,
             'link_gdrive' => 'https://drive.google.com/',
         ]);
+
         TugasMahasiswa::create([
             'kode_tugas' => 1,
             'nim' => '12345678',
@@ -50,14 +51,14 @@ class TugasMahasiswaSeeder extends Seeder
             'kode_tugas' => 1,
             'nim' => '12345678',
             'status' => 'kunjungan_pu',
-            'jumlah' => 30,
+            'jumlah' => 10,
             'link_gdrive' => 'https://drive.google.com/',
         ]);
         TugasMahasiswa::create([
             'kode_tugas' => 1,
             'nim' => '12345678',
             'status' => 'kunjungan_bpu',
-            'jumlah' => 30,
+            'jumlah' => 15,
             'link_gdrive' => 'https://drive.google.com/',
         ]);
         TugasMahasiswa::create([

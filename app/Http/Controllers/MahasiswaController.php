@@ -6,7 +6,6 @@ use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Http\Request;
 use App\Models\Kelas;
 
 class MahasiswaController extends Controller

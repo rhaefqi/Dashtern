@@ -11,8 +11,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TugasController;
 use App\Http\Controllers\PengumumanController;
-use App\Models\Pengumuman;
-use App\Http\Controllers\MahasiswaController
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PanduanController;
 use Illuminate\Support\Facades\Auth;
 
@@ -204,6 +203,3 @@ Route::post('/form/submit', function (Request $request) {
     return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
 })->name('tugas.submit');
 
-Route::get('/export', function () {
-    return Excel::download(new UsersExport, 'users.xlsx');
-});
