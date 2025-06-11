@@ -1,20 +1,26 @@
 <?php
 
+use App\Models\Mahasiswa;
+use App\Models\Pengumuman;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TugasController;
-use App\Http\Controllers\PengumumanController;
-use App\Models\Pengumuman;
+use App\Http\Controllers\PanduanController;
+use App\Http\Controllers\MahasiswaController;
+use Illuminate\Support\Facades\Auth;
 
 // Halaman Login 1 (Pilihan role)
 Route::get('/', function () {
     return view('login-select');
 })->name('login');
+
+// routes/web.php
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Halaman Form Login Mahasiswa
 Route::get('/login/mahasiswa', [LoginController::class, 'mahasiswa'])->name('login.mahasiswa');
@@ -22,7 +28,7 @@ Route::post('/login/mahasiswa', [AuthController::class, 'login'])->name('auth.lo
 
 // Halaman Form Login Admin
 Route::get('/login/admin', [LoginController::class, 'admin'])->name('login.admin');
-Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('auth.login.admin');
+Route::post('/login/admin', [AuthController::class, 'login'])->name('auth.login.admin');
 
 // Halaman Beranda Admin (tanpa controller
 Route::get('/admin/beranda', function () {
@@ -46,6 +52,10 @@ Route::get('/admin/profil', function () {
 Route::get('/admin/tentang', function () {
     return view('admin.tentang'); 
 })->name('admin.tentang');
+
+Route::get('/admin/mahasiswa',  [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
+Route::post('/admin/mahasiswa',  [MahasiswaController::class, 'import'])->name('admin.mahasiswa.import');
+// Route::get('/admin/mahasiswa?search=' . $search,  [MahasiswaController::class, 'search'])->name('admin.mahasiswa.search');
 
 // Route::get('admin/kelas', function () {
 //     return view('admin.kelas');
@@ -187,3 +197,9 @@ Route::post('/form/submit', function (Request $request) {
     // Untuk sekarang kita cukup redirect kembali dengan pesan sukses
     return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
 })->name('tugas.submit');
+
+
+
+Route::get('/export', function () {
+    return Excel::download(new UsersExport, 'users.xlsx');
+});

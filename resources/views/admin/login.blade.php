@@ -20,12 +20,16 @@
             <form method="POST" action="{{ route('auth.login.admin') }}">
                 @csrf
                 <div class="mb-4">
-                    <label for="kode_admin" class="block text-sm mb-1">Kode Admin</label>
-                    <input type="text" id="kode_admin" name="kode_admin" class="w-full px-4 py-2 rounded-lg bg-black/40 text-white focus:outline-none" required>
+                    <label for="username" class="block text-sm mb-1">Username</label>
+                    <input type="text" id="username" name="username" class="w-full px-4 py-2 rounded-lg bg-black/40 text-white focus:outline-none" required>
+                    <input type="hidden" name="status" value="admin">
                 </div>
                 <div class="mb-6">
                     <label for="password" class="block text-sm mb-1">Kata Sandi</label>
                     <input type="password" id="password" name="password" class="w-full px-4 py-2 rounded-lg bg-black/40 text-white focus:outline-none" required>
+                    @error('login')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
                 <button type="submit" class="w-full py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-200 transition">Masuk</button>
             </form>
