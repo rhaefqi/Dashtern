@@ -250,7 +250,6 @@
         @elseif ($tab == 'orang')
             <h2 class="text-xl font-semibold mb-4">Daftar Mahasiswa</h2>
 
-
             <div class="overflow-auto rounded-lg border border-gray-200">
                 <table class="min-w-full table-fixed text-sm text-left text-gray-700">
                     <thead class="bg-gray-100 font-semibold text-gray-700">

@@ -70,3 +70,19 @@ function deleteTugas($id) {
    });
 }
 
+function gagalNim($id) {
+   Swal.fire({
+      title: "Gagal Login!",
+      text: "Nim anda tidak terdaftar, silahkan hubungi admin untuk info lebih lanjut",
+      icon: "warning",
+      showCancelButton: false,
+      confirmButtonColor: "#D80032",
+      cancelButtonColor: "#006633",
+      confirmButtonText: "OK"
+   }).then((result) => {
+      if (result.isConfirmed) {
+         // document.getElementById(`form-delete-${$id}`).submit();
+      }
+   });
+}
+
