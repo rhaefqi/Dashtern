@@ -1,36 +1,71 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Models\Mahasiswa;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        // Contoh logika login, kamu bisa sesuaikan
-        $nim = $request->input('nim');
-        $password = $request->input('password');
+        $data = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+            'status' => 'required'
+        ]);
 
-        // Validasi dummy untuk demo
-        if ($nim == '123456' && $password == 'password') {
-            return redirect()->route('beranda'); // Buat route dashboard jika perlu
+        if ($data['status'] == 'mahasiswa') {
+            $cekAkun = User::where('username', $data['username'])->first();
+            $cekMahasiswa = Mahasiswa::where('nim', $data['username'])->first();
+
+            if (!$cekMahasiswa) {
+                return back()->with('error', 'NIM tidak terdaftar');
+            }
+
+            // dd($data['nim']);
+            if (!$cekAkun) {
+                User::create([
+                    'username' => $data['username'],
+                    'password' => bcrypt($data['password']),
+                    'status' => 'mahasiswa'
+                ]);
+            }
         }
 
-        return back()->withErrors(['login' => 'NIM atau Password salah.']);
+        try {
+            if (Auth::attempt($data)) {
+                $request->session()->regenerate();
+                if ($data['status'] == 'mahasiswa') {
+                    return redirect()->route('beranda');
+                }else{
+                    return redirect()->route('admin.beranda');
+                }
+            } else {
+                return back()->withErrors(['login' => 'Password salah.']);
+            }
+        } catch (\Exception $e) {
+            return back()->with('agah', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+
+
+        // if (Auth::attempt($data)) {
+        //     $request->session()->regenerate();
+
+        //     return redirect()->route('mahasiswa.beranda');
+        // } else {
+        //     return back()->with('agah', 'tes');
+        // }
     }
-  
-    public function loginAdmin(Request $request)
+
+    public function logout(Request $request)
     {
-    $kode = $request->input('kode_admin');
-    $password = $request->input('password');
-
-    // Validasi dummy
-    if ($kode == 'admin123' && $password == 'password') {
-    return redirect()->route('admin.beranda');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
-
-    return back()->withErrors(['login' => 'Kode Admin atau Password salah.']);
-    }
-    
 
 }

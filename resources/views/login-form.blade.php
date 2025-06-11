@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login Dashtern</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 </head>
-<body class="h-screen w-screen bg-cover bg-center flex items-center justify-center" style="background-image: url('/image/bg.jpg');">
+
+<body class="h-screen w-screen bg-cover bg-center flex items-center justify-center"
+    style="background-image: url('/image/bg.jpg');">
 
     <div class="flex bg-white/30 backdrop-blur-lg rounded-2xl shadow-xl p-10 w-full max-w-4xl">
         <!-- Kiri: Logo -->
@@ -14,6 +18,12 @@
             <h1 class="text-4xl font-bold">Dashtern</h1>
         </div>
 
+        @if (session('error'))
+            <script>
+                window.onload = () => gagalNim()
+            </script>
+        @endif
+
         <!-- Kanan: Form -->
         <div class="w-1/2 flex flex-col justify-center pl-8 text-white">
             <h2 class="text-3xl font-bold mb-6">Masuk</h2>
@@ -21,16 +31,29 @@
                 @csrf
                 <div class="mb-4">
                     <label for="nim" class="block text-sm mb-1">NIM</label>
-                    <input type="text" id="nim" name="nim" class="w-full px-4 py-2 rounded-lg bg-black/40 text-white focus:outline-none" required>
+                    <input type="text" id="username" name="username"
+                        class="w-full px-4 py-2 rounded-lg bg-black/40 text-white focus:outline-none" required>
+                        <input type="hidden" name="status" value="mahasiswa">
                 </div>
                 <div class="mb-6">
                     <label for="password" class="block text-sm mb-1">Kata Sandi</label>
-                    <input type="password" id="password" name="password" class="w-full px-4 py-2 rounded-lg bg-black/40 text-white focus:outline-none" required>
+                    <input type="password" id="password" name="password"
+                        class="w-full px-4 py-2 rounded-lg bg-black/40 text-white focus:outline-none" required>
+                    @error('login')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
-                <button type="submit" class="w-full py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-200 transition">Masuk</button>
+                <button type="submit"
+                    class="w-full py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-200 transition">Masuk</button>
             </form>
         </div>
     </div>
 
+    @stack('scripts')
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>
