@@ -13,6 +13,7 @@ use App\Http\Controllers\TugasController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PanduanController;
+use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
@@ -30,13 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/tugas/{id}/form', [TugasController::class, 'form'])->name('tugas.form');
     Route::post('/form/submit', [TugasController::class, 'submit'])->name('tugas.submit');
 
+    Route::get('/panduan', [PanduanController::class, 'indexMahasiswa'])->name('panduan.index');
+
+    Route::get('/profil', [ProfilController::class, 'show'])->name('profile.show');
+
+
     Route::get('/progres', function () {
         return view('progres');
     })->name('progres');
-
-    Route::get('/profil', function () {
-        return view('profil');
-    })->name('profil');
 
     Route::get('/ganti-password', function () {
         return view('ganti-password');
@@ -144,9 +146,9 @@ Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
 
-Route::get('/profil', function () {
-    return view('profil');
-})->name('profil');
+// Route::get('/profil', function () {
+//     return view('profil');
+// })->name('profil');
 
 Route::get('/ganti-password', function (){
     return view('ganti-password');
