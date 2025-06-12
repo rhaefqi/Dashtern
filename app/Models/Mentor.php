@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Mentor extends Model
 {
     use HasFactory;
+
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class, 'mentor_id');
+    }
 }

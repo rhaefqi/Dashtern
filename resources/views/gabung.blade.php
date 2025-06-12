@@ -29,8 +29,8 @@
               Gabung
           </button>
       </form>
+      </div>
     </div>
-  </div>
 
   @if(session('success'))
   <script>

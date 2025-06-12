@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class KelasController extends Controller
 {
+
+    public function beranda(){
+        return view('admin.beranda');
+    }
     public function show($id)
     {
         $kelas = Kelas::findOrFail($id);
@@ -28,13 +32,18 @@ class KelasController extends Controller
 
     public function indexMahasiswa()
     {
-       $mahasiswa = Mahasiswa::where('user_id', auth()->id())->first();
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->user_id)->first();
+
         if (!$mahasiswa) {
-            return redirect()->back()->with('error', 'Mahasiswa tidak ditemukan');
+            return view('kelas')->with('kelas', null)->with('error', 'Mahasiswa tidak ditemukan');
         }
+
         $kelas = Kelas::where('kode_kelas', $mahasiswa->kode_kelas)->first();
+
         return view('kelas', compact('kelas'));
     }
+
+
 
     public function detail($kode)
     {

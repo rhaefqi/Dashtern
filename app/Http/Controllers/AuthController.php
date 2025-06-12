@@ -40,7 +40,7 @@ class AuthController extends Controller
                 $request->session()->regenerate();
                 if ($data['status'] == 'mahasiswa') {
                     return redirect()->route('beranda');
-                }else{
+                } else {
                     return redirect()->route('admin.beranda');
                 }
             } else {
@@ -67,5 +67,4 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('login');
     }
-
 }

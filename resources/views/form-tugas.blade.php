@@ -7,7 +7,7 @@
 
     <!-- Judul -->
     <div class="text-2xl font-semibold mb-6">
-        Kumpulkan Tugas &gt; <span class="text-[#145A5A]">Universitas Sumatera Utara</span> &gt; <span class="text-[#145A5A]">Akuisisi Bulan Ke-1</span>
+        Kumpulkan Tugas &gt; <span class="text-[#145A5A]">{{ $tugas->kode_kelas }}</span> &gt; <span class="text-[#145A5A]">{{ $tugas->nama }}</span>
     </div>
 
     <!-- Form Box -->
@@ -15,10 +15,13 @@
         <form action="{{ route('tugas.submit') }}" method="POST">
             @csrf
 
+            <input type="hidden" name="kode_tugas" value="{{ $tugas->id }}">
+            <input type="hidden" name="status" value="{{ $tugas->status }}">
+
             <!-- Input Jumlah Akuisisi -->
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1" for="jumlah_akuisisi">Jumlah Akuisisi</label>
-                <input type="number" id="jumlah_akuisisi" name="jumlah_akuisisi"
+                <input type="number" id="jumlah_akuisisi" name="jumlah"
                     class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#145A5A]"
                     required>
             </div>
@@ -26,7 +29,7 @@
             <!-- Input Link Drive -->
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-1" for="link_drive">Link Google Drive</label>
-                <input type="url" id="link_drive" name="link_drive"
+                <input type="url" id="link_drive" name="link_gdrive"
                     class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#145A5A]"
                     placeholder="https://drive.google.com/..." required>
             </div>
@@ -37,6 +40,10 @@
                 Submit Tugas
             </button>
         </form>
+
     </div>
 </div>
+
 @endsection
+
+
