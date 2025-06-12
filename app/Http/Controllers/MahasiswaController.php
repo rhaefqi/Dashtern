@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
-use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -23,7 +22,7 @@ class MahasiswaController extends Controller
             return redirect()->back()->with('error', 'Kode kelas tidak ditemukan!');
         }
 
-        $mahasiswa = Mahasiswa::where('user_id', auth()->id())->first();
+        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->user_id)->first();
 
         if (!$mahasiswa) {
             return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
@@ -68,4 +67,15 @@ class MahasiswaController extends Controller
         return redirect()->back()->with('success', 'Data mahasiswa berhasil diimport.');
     }
 
+    public function showGabungPage()
+    {
+        $mahasiswa = auth()->user(); // pastikan user login sebagai mahasiswa
+
+        $kelas = null;
+        if ($mahasiswa && $mahasiswa->kode_kelas) {
+            $kelas = Kelas::with('mentor')->where('kode_kelas', $mahasiswa->kode_kelas)->first();
+        }
+
+        return view('gabung', compact('kelas'));
+    }
 }

@@ -8,40 +8,76 @@
     <!-- Breadcrumb -->
     <div class="text-2xl font-semibold mb-6">
         Tugas &gt; 
-        <span class="text-[#145A5A]">{{ $tugas->tugasKelas->nama ?? 'Nama Kelas' }}</span> &gt; 
+        <span class="text-[#145A5A]">{{ $tugas->nama ?? 'Nama Kelas' }}</span> &gt; 
         <span class="text-[#145A5A]">{{ $tugas->judul }}</span>
     </div>
 
     <!-- Box Detail Tugas -->
-    <div class="bg-white rounded-xl shadow p-6 space-y-4">
+    <div class="bg-white rounded-xl shadow p-6 space-y-6">
 
-        <!-- Header: Judul dan Deadline -->
-        <div class="flex justify-between items-start">
+        <!-- Header: Judul, Tanggal Mulai, dan Deadline -->
+        <div class="flex justify-between flex-col sm:flex-row sm:items-start gap-4">
             <div>
-                <h2 class="text-xl font-bold text-[#145A5A]">{{ $tugas->judul }}</h2>
-                <p class="text-sm text-gray-600 mt-1">{{ \Carbon\Carbon::parse($tugas->tanggal_mulai)->format('d M Y') }}</p>
-                <p class="text-sm text-gray-600">{{ $tugas->poin }} poin</p>
+                <h2 class="text-xl font-bold text-[#145A5A]">{{ $tugas->nama }}</h2>
+                <p class="text-sm text-gray-600 mt-1">
+                    Tanggal mulai: {{ \Carbon\Carbon::parse($tugas->created_at)->format('d M Y') }}
+                </p>
+                <p class="text-sm text-gray-600">
+                    Status: <span class="font-semibold text-[#145A5A] capitalize">{{ $tugas->status }}</span>
+                </p>
             </div>
-            <div class="text-right">
-                <p class="text-sm text-red-600 font-bold">Deadline: {{ \Carbon\Carbon::parse($tugas->deadline)->format('d M Y') }}</p>
+            <div class="text-sm text-right text-red-600 font-semibold">
+                Deadline: {{ \Carbon\Carbon::parse($tugas->tenggat)->format('d M Y') }}
             </div>
         </div>
 
-        <!-- Deskripsi Tugas -->
+        <!-- Deskripsi -->
         <div>
             <h3 class="font-semibold text-[#145A5A] mb-1">Deskripsi Tugas:</h3>
-            <p class="text-gray-600">
+            <p class="text-gray-700 leading-relaxed">
                 {{ $tugas->deskripsi }}
             </p>
         </div>
 
+        <!-- Lampiran -->
+        @if ($tugas->lampiran)
+            <div>
+                <h3 class="font-semibold text-[#145A5A] mb-1">Lampiran:</h3>
+                <a href="{{ asset('storage/lampiran/' . $tugas->lampiran) }}" target="_blank"
+                    class="text-blue-600 underline">
+                    Lihat Lampiran
+                </a>
+            </div>
+        @endif
+
         <!-- Tombol Kumpulkan -->
         <div class="pt-4">
-            <a href="{{ route('tugas.form') }}"
+            <a href="{{ route('tugas.form', $tugas->id) }}"
                 class="block w-full text-center bg-[#145A5A] hover:bg-[#0e3e3e] text-white font-semibold px-6 py-3 rounded-md transition">
                 Kumpulkan Tugas
             </a>
         </div>
+
     </div>
 </div>
+@if(session('success'))
+  <script>
+      Swal.fire({
+          icon: 'success',
+          title: 'Berhasil',
+          text: '{{ session('success') }}',
+      })
+  </script>
+  @endif
+
+  @if(session('error'))
+  <script>
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '{{ session('error') }}',
+      })
+  </script>
+  @endif
+  
 @endsection
