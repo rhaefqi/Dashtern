@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('ganti-password') }}" class="bg-[#00332f] text-white text-sm text-center px-4 py-2 rounded-3xl mr-10 h-10 hover:bg-[#005046] transition">
+            <a href="{{ route('profil.ganti-password.update') }}" class="bg-[#00332f] text-white text-sm text-center px-4 py-2 rounded-3xl mr-10 h-10 hover:bg-[#005046] transition">
                 Ganti Kata Sandi
             </a>
         </div>

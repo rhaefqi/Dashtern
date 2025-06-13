@@ -7,10 +7,12 @@ use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
+use Illuminate\Support\Facades\Hash;
+
 
 class MahasiswaController extends Controller
 {
-   public function joinClass(Request $request)
+    public function joinClass(Request $request)
     {
         $request->validate([
             'kode_kelas' => 'required|string',
@@ -22,19 +24,26 @@ class MahasiswaController extends Controller
             return redirect()->back()->with('error', 'Kode kelas tidak ditemukan!');
         }
 
-        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->user_id)->first();
+       $mahasiswa = Mahasiswa::where('nim', auth()->user()->username)->first();
 
         if (!$mahasiswa) {
             return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
         }
 
-        // Validasi: hanya bisa join ke kelas yang sesuai dengan data awal
-        if ($mahasiswa->kode_kelas !== $request->kode_kelas) {
-            return redirect()->back()->with('error', 'Kamu tidak diizinkan masuk ke kelas ini.');
+        // Cek apakah mahasiswa sudah tergabung di kelas lain
+        if ($mahasiswa->kode_kelas && $mahasiswa->kode_kelas !== $request->kode_kelas) {
+            return redirect()->back()->with('error', 'Kamu sudah tergabung di kelas lain.');
+        }
+
+        // Jika belum tergabung, simpan kode_kelas
+        if (!$mahasiswa->kode_kelas) {
+            $mahasiswa->kode_kelas = $request->kode_kelas;
+            $mahasiswa->save();
         }
 
         return redirect('/kelas')->with('success', 'Berhasil masuk ke kelas.');
     }
+
 
     public function index(Request $request)
     {
@@ -67,7 +76,7 @@ class MahasiswaController extends Controller
         return redirect()->back()->with('success', 'Data mahasiswa berhasil diimport.');
     }
 
-    public function showGabungPage()
+        public function showGabungPage()
     {
         $mahasiswa = auth()->user(); // pastikan user login sebagai mahasiswa
 
@@ -78,4 +87,5 @@ class MahasiswaController extends Controller
 
         return view('gabung', compact('kelas'));
     }
+
 }

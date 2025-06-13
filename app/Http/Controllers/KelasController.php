@@ -28,7 +28,7 @@ class KelasController extends Controller
 
     public function indexMahasiswa()
     {
-        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->user_id)->first();
+        $mahasiswa = Mahasiswa::where('nim', auth()->user()->username)->first();
 
         if (!$mahasiswa) {
             return view('kelas')->with('kelas', null)->with('error', 'Mahasiswa tidak ditemukan');
@@ -39,13 +39,13 @@ class KelasController extends Controller
         return view('kelas', compact('kelas'));
     }
 
-
-
     public function detail($kode)
     {
         $dataNilai = $this->nilaiMahasiswa4BulanChart($kode);
         $mahasiswa = $this->nilaiMahasiswa4Bulan($kode);
         $kelas = Kelas::with(['pengumuman', 'tugas'])->where('kode_kelas', $kode)->first();
+        $pengumuman = Pengumuman::where('kode_kelas', $kode)->get();
+        $tugas = TugasKelas::where('kode_kelas', $kode)->get(); 
         return view('admin.detailkelas', compact('kelas', 'pengumuman', 'tugas', 'mahasiswa'));
     }
 
