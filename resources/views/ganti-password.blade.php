@@ -14,30 +14,45 @@
     <form id="changePasswordForm" method="POST" action="{{ route('ganti-pass-validated') }}" class="space-y-4">
       @csrf
       <!-- Kata Sandi Lama -->
-      <div>
+      <div class="relative">
         <label for="oldPassword" class="block text-sm font-medium text-gray-700">
           Kata Sandi Lama <span class="text-red-500">*</span>
         </label>
         <input type="password" name="old_password" id="oldPassword" required
           class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0b3d36]" />
+          <!-- Tombol show/hide -->
+                    <span class="absolute right-3 top-8 cursor-pointer" onclick="togglePassword(this)" title="Tampilkan / Sembunyikan">
+                        <i class="fa-solid fa-eye hidden" style = " color : #000000";></i>
+                        <i class="fa-solid fa-eye-slash" style = " color : #000000";></i>
+                    </span>
       </div>
 
       <!-- Kata Sandi Baru -->
-      <div>
+      <div class="relative">
         <label for="newPassword" class="block text-sm font-medium text-gray-700">
           Kata Sandi Baru <span class="text-red-500">*</span>
         </label>
         <input type="password" name="new_password" id="newPassword" required
           class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0b3d36]" />
+        <!-- Tombol show/hide -->
+                    <span class="absolute right-3 top-8 cursor-pointer" onclick="togglePassword(this)" title="Tampilkan / Sembunyikan">
+                        <i class="fa-solid fa-eye hidden" style = " color : #000000";></i>
+                        <i class="fa-solid fa-eye-slash" style = " color : #000000";></i>
+                    </span>
       </div>
 
       <!-- Konfirmasi Kata Sandi -->
-      <div>
+      <div class="relative">
         <label for="confirmPassword" class="block text-sm font-medium text-gray-700">
           Konfirmasi Kata Sandi Baru <span class="text-red-500">*</span>
         </label>
         <input type="password" name="confirm_password" id="confirmPassword" required
           class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0b3d36]" />
+        <!-- Tombol show/hide -->
+                    <span class="absolute right-3 top-8 cursor-pointer" onclick="togglePassword(this)" title="Tampilkan / Sembunyikan">
+                        <i class="fa-solid fa-eye hidden" style = " color : #000000";></i>
+                        <i class="fa-solid fa-eye-slash" style = " color : #000000";></i>
+                    </span>
       </div>
 
       <!-- Button -->
@@ -77,7 +92,28 @@
 
       this.submit(); // kirim form ke backend
     });
-</script>
+
+    </script>
+
+    <script>
+    function togglePassword(el) {
+      const container = el.closest('.relative'); // cari container div terdekat
+      const input = container.querySelector('input'); // cari input dalam container itu
+      const eyeShow = el.querySelector('.fa-eye-slash');
+      const eyeHide = el.querySelector('.fa-eye');
+
+      if (input.type === 'password') {
+          input.type = 'text';
+          eyeShow.classList.add('hidden');
+          eyeHide.classList.remove('hidden');
+      } else {
+          input.type = 'password';
+          eyeShow.classList.remove('hidden');
+          eyeHide.classList.add('hidden');
+      }
+  }
+
+  </script>
 
   @if(session('success'))
   <script>
