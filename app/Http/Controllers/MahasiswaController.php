@@ -38,14 +38,15 @@ class MahasiswaController extends Controller
 
     public function index(Request $request)
     {
-        $query = $request->input('search'); // Ambil nilai dari input 'search'
+        // dd($request);
+        $search = $request->input('search'); // Ambil nilai dari input 'search'
 
-        if ($query) {
-            $mahasiswa = Mahasiswa::where('nama', 'LIKE', '%' . $query . '%')
-                                 ->orWhere('universitas', 'LIKE', '%' . $query . '%')
-                                 ->orWhere('fakultas', 'LIKE', '%' . $query . '%')
-                                 ->orWhere('prodi', 'LIKE', '%' . $query . '%')
-                                 ->orWhere('kelompok', 'LIKE', '%' . $query . '%')
+        if ($search) {
+            $mahasiswa = Mahasiswa::where('nama', 'LIKE', '%' . $search . '%')
+                                 ->orWhere('universitas', 'LIKE', '%' . $search . '%')
+                                 ->orWhere('fakultas', 'LIKE', '%' . $search . '%')
+                                 ->orWhere('prodi', 'LIKE', '%' . $search . '%')
+                                 ->orWhere('kelompok', 'LIKE', '%' . $search . '%')
                                  ->get();
         } else {
             $mahasiswa = Mahasiswa::all();

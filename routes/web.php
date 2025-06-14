@@ -89,23 +89,23 @@ Route::post('/login/admin', [AuthController::class, 'login'])->name('auth.login.
 //     return view('admin.beranda'); 
 // })->name('admin.beranda');
 
-// Route::get('/panduan', [PanduanController::class, 'indexMahasiswa']);
-// Route::get('/admin/panduan', [PanduanController::class, 'indexAdmin']);
-// Route::post('/admin/panduan', [PanduanController::class, 'store']);
-// Route::delete('/admin/panduan/{id}', [PanduanController::class, 'destroy']);
+Route::get('/panduan', [PanduanController::class, 'indexMahasiswa']);
+Route::get('/admin/panduan', [PanduanController::class, 'indexAdmin']);
+Route::post('/admin/panduan', [PanduanController::class, 'store']);
+Route::delete('/admin/panduan/{id}', [PanduanController::class, 'destroy']);
 
 // //Halaman Mahasiswa
 // Route::get('/beranda', function () {
 //     return view('beranda');
 // })->name('beranda');
 
-// Route::get('/admin/profil', function () {
-//     return view('admin.profil'); 
-// })->name('admin.profil');
+Route::get('/admin/profil', function () {
+    return view('admin.profil'); 
+})->name('admin.profil');
 
-// Route::get('/admin/tentang', function () {
-//     return view('admin.tentang'); 
-// })->name('admin.tentang');
+Route::get('/admin/tentang', function () {
+    return view('admin.tentang'); 
+})->name('admin.tentang');
 
 Route::get('/admin/mahasiswa',  [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
 Route::post('/admin/mahasiswa',  [MahasiswaController::class, 'import'])->name('admin.mahasiswa.import');
@@ -225,7 +225,7 @@ Route::post('admin/ganti-password', function (Request $request) {
 // })->name('tugas.detail');
 
 // routes/web.php
-Route::get('/tugas/{id}', [TugasController::class, 'detail'])->name('tugas.detail');
+// Route::get('/tugas/{id}', [TugasController::class, 'detail'])->name('tugas.detail');
 
 
 // Halaman form pengumpulan tugas
