@@ -13,6 +13,7 @@ use App\Http\Controllers\TugasController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PanduanController;
+use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
@@ -30,43 +31,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/tugas/{id}/form', [TugasController::class, 'form'])->name('tugas.form');
     Route::post('/form/submit', [TugasController::class, 'submit'])->name('tugas.submit');
 
+    Route::get('/panduan', [PanduanController::class, 'indexMahasiswa'])->name('panduan.index');
+
+    Route::get('/profil', [ProfilController::class, 'show'])->name('profile.show');
+
+
     Route::get('/progres', function () {
         return view('progres');
     })->name('progres');
 
-    Route::get('/profil', function () {
-        return view('profil');
-    })->name('profil');
+    Route::get('/ganti-password', [ProfilController::class, 'gantiPasswordShow'])->name('profil.ganti-password.update');
 
-    Route::get('/ganti-password', function () {
-        return view('ganti-password');
-    })->name('ganti-password');
-
-    Route::post('/ganti-password', function (Request $request) {
-        // Validasi password
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => [
-                'required',
-                'string',
-                'min:8',
-                'regex:/[A-Z]/',
-                'regex:/[0-9]/'
-            ],
-            'confirm_password' => 'required|same:new_password',
-        ]);
-
-        if (!Hash::check($request->old_password, auth()->user()->password)) {
-            return back()->withErrors(['old_password' => 'Kata sandi lama salah']);
-        }
-
-        auth()->user()->update([
-            'password' => Hash::make($request->new_password)
-        ]);
-
-        return redirect()->route('profil')->with('success', 'Kata sandi berhasil diubah!');
-    })->name('profil.ganti-password.update');
-
+    Route::post('/ganti-pass-validated', [ProfilController::class, 'gantiPassword'])->name('ganti-pass-validated');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });
@@ -84,10 +60,10 @@ Route::post('/login/mahasiswa', [AuthController::class, 'login'])->name('auth.lo
 Route::get('/login/admin', [LoginController::class, 'admin'])->name('login.admin');
 Route::post('/login/admin', [AuthController::class, 'login'])->name('auth.login.admin');
 
-// // Halaman Beranda Admin (tanpa controller
-// Route::get('/admin/beranda', function () {
-//     return view('admin.beranda'); 
-// })->name('admin.beranda');
+// Halaman Beranda Admin (tanpa controller
+Route::get('/admin/beranda', function () {
+    return view('admin.beranda'); 
+})->name('admin.beranda');
 
 Route::get('/panduan', [PanduanController::class, 'indexMahasiswa']);
 Route::get('/admin/panduan', [PanduanController::class, 'indexAdmin']);
@@ -109,7 +85,7 @@ Route::get('/admin/tentang', function () {
 
 Route::get('/admin/mahasiswa',  [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
 Route::post('/admin/mahasiswa',  [MahasiswaController::class, 'import'])->name('admin.mahasiswa.import');
-Route::get('/admin/mahasiswa?search=' ,  [MahasiswaController::class, 'search'])->name('admin.mahasiswa.search');
+// // Route::get('/admin/mahasiswa?search=' . $search,  [MahasiswaController::class, 'search'])->name('admin.mahasiswa.search');
 
 // // Route::get('admin/kelas', function () {
 // //     return view('admin.kelas');
@@ -145,41 +121,41 @@ Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
 
-Route::get('/profil', function () {
-    return view('profil');
-})->name('profil');
+// Route::get('/profil', function () {
+//     return view('profil');
+// })->name('profil');
 
-Route::get('/ganti-password', function (){
-    return view('ganti-password');
-})->name('ganti-password');
+// Route::get('/ganti-password', function (){
+//     return view('ganti-password');
+// })->name('ganti-password');
 
 
-Route::post('/ganti-password', function (Request $request) {
-    // Validasi password
-    $request->validate([
-        'old_password' => 'required',
-        'new_password' => [
-            'required',
-            'string',
-            'min:8',
-            'regex:/[A-Z]/',  // setidaknya satu huruf kapital
-            'regex:/[0-9]/'   // setidaknya satu angka
-        ],
-        'confirm_password' => 'required|same:new_password',
-    ]);
+// Route::post('/ganti-password', function (Request $request) {
+//     // Validasi password
+//     $request->validate([
+//         'old_password' => 'required',
+//         'new_password' => [
+//             'required',
+//             'string',
+//             'min:8',
+//             'regex:/[A-Z]/',  // setidaknya satu huruf kapital
+//             'regex:/[0-9]/'   // setidaknya satu angka
+//         ],
+//         'confirm_password' => 'required|same:new_password',
+//     ]);
 
-    // Cek apakah password lama benar
-    if (!Hash::check($request->old_password, auth()->user()->password)) {
-        return back()->withErrors(['old_password' => 'Kata sandi lama salah']);
-    }
+//     // Cek apakah password lama benar
+//     if (!Hash::check($request->old_password, auth()->user()->password)) {
+//         return back()->withErrors(['old_password' => 'Kata sandi lama salah']);
+//     }
 
-    // Update password
-    auth()->user()->update([
-        'password' => Hash::make($request->new_password)
-    ]);
+//     // Update password
+//     auth()->user()->update([
+//         'password' => Hash::make($request->new_password)
+//     ]);
 
-    return redirect()->route('profil')->with('success', 'Kata sandi berhasil diubah!');
-})->name('profil.ganti-password.update');
+//     return redirect()->route('profil')->with('success', 'Kata sandi berhasil diubah!');
+// })->name('profil.ganti-password.update');
 
 
 Route::get('admin/ganti-password', function (){

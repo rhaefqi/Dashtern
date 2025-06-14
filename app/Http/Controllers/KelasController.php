@@ -32,7 +32,7 @@ class KelasController extends Controller
 
     public function indexMahasiswa()
     {
-        $mahasiswa = Mahasiswa::where('user_id', auth()->user()->user_id)->first();
+        $mahasiswa = Mahasiswa::where('nim', auth()->user()->username)->first();
 
         if (!$mahasiswa) {
             return view('kelas')->with('kelas', null)->with('error', 'Mahasiswa tidak ditemukan');
@@ -42,8 +42,6 @@ class KelasController extends Controller
 
         return view('kelas', compact('kelas'));
     }
-
-
 
     public function detail($kode)
     {

@@ -11,95 +11,132 @@
 
     <h2 class="text-xl font-semibold text-gray-800 mb-4">Ganti Kata Sandi</h2>
 
-    <form id="changePasswordForm" class="space-y-4">
+    <form id="changePasswordForm" method="POST" action="{{ route('ganti-pass-validated') }}" class="space-y-4">
+      @csrf
       <!-- Kata Sandi Lama -->
-      <div>
+      <div class="relative">
         <label for="oldPassword" class="block text-sm font-medium text-gray-700">
           Kata Sandi Lama <span class="text-red-500">*</span>
         </label>
-        <input type="password" id="oldPassword" required
+        <input type="password" name="old_password" id="oldPassword" required
           class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0b3d36]" />
+          <!-- Tombol show/hide -->
+                    <span class="absolute right-3 top-8 cursor-pointer" onclick="togglePassword(this)" title="Tampilkan / Sembunyikan">
+                        <i class="fa-solid fa-eye hidden" style = " color : #000000";></i>
+                        <i class="fa-solid fa-eye-slash" style = " color : #000000";></i>
+                    </span>
       </div>
 
       <!-- Kata Sandi Baru -->
-      <div>
+      <div class="relative">
         <label for="newPassword" class="block text-sm font-medium text-gray-700">
           Kata Sandi Baru <span class="text-red-500">*</span>
         </label>
-        <input type="password" id="newPassword" required
+        <input type="password" name="new_password" id="newPassword" required
           class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0b3d36]" />
+        <!-- Tombol show/hide -->
+                    <span class="absolute right-3 top-8 cursor-pointer" onclick="togglePassword(this)" title="Tampilkan / Sembunyikan">
+                        <i class="fa-solid fa-eye hidden" style = " color : #000000";></i>
+                        <i class="fa-solid fa-eye-slash" style = " color : #000000";></i>
+                    </span>
       </div>
 
       <!-- Konfirmasi Kata Sandi -->
-      <div>
+      <div class="relative">
         <label for="confirmPassword" class="block text-sm font-medium text-gray-700">
           Konfirmasi Kata Sandi Baru <span class="text-red-500">*</span>
         </label>
-        <input type="password" id="confirmPassword" required
+        <input type="password" name="confirm_password" id="confirmPassword" required
           class="mt-1 block w-full rounded-md bg-gray-100 border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#0b3d36]" />
+        <!-- Tombol show/hide -->
+                    <span class="absolute right-3 top-8 cursor-pointer" onclick="togglePassword(this)" title="Tampilkan / Sembunyikan">
+                        <i class="fa-solid fa-eye hidden" style = " color : #000000";></i>
+                        <i class="fa-solid fa-eye-slash" style = " color : #000000";></i>
+                    </span>
       </div>
 
       <!-- Button -->
-      <button type="submit" href="{{ route('profil.ganti-password.update') }}"
+      <button type="submit"
         class="w-full bg-[#0b3d36] text-white font-semibold py-2 rounded-md hover:bg-[#072a25] transition">
         Ubah Kata Sandi
       </button>
     </form>
 
-    <!-- Notifikasi -->
-    <div id="successAlert" class="hidden mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative" role="alert">
-      <strong class="font-bold">Berhasil!</strong>
-      <span class="block sm:inline">Kata sandi telah diubah.</span>
-      <span onclick="document.getElementById('successAlert').classList.add('hidden')" class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer">
-        ×
-      </span>
-    </div>
-  </div>
-
-  <!-- Script Validasi -->
-  <script>
+   <script>
     document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
       const oldPassword = document.getElementById('oldPassword').value;
       const newPassword = document.getElementById('newPassword').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
-      const alertBox = document.getElementById('successAlert');
 
       const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
       if (!passwordPattern.test(newPassword)) {
-        alert('Kata sandi baru harus memiliki minimal 8 karakter, satu huruf kapital, dan satu angka.');
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops!',
+          text: 'Kata sandi baru harus memiliki minimal 8 karakter, satu huruf kapital, dan satu angka.'
+        });
         return;
       }
 
       if (newPassword !== confirmPassword) {
-        alert('Konfirmasi kata sandi tidak cocok.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Konfirmasi Tidak Cocok',
+          text: 'Konfirmasi kata sandi tidak sama.'
+        });
         return;
       }
 
-      // Simulasikan berhasil
-      alertBox.classList.remove('hidden');
-
-      // Reset form
-      this.reset();
+      this.submit(); // kirim form ke backend
     });
+
+    </script>
+
+    <script>
+    function togglePassword(el) {
+      const container = el.closest('.relative'); // cari container div terdekat
+      const input = container.querySelector('input'); // cari input dalam container itu
+      const eyeShow = el.querySelector('.fa-eye-slash');
+      const eyeHide = el.querySelector('.fa-eye');
+
+      if (input.type === 'password') {
+          input.type = 'text';
+          eyeShow.classList.add('hidden');
+          eyeHide.classList.remove('hidden');
+      } else {
+          input.type = 'password';
+          eyeShow.classList.remove('hidden');
+          eyeHide.classList.add('hidden');
+      }
+  }
+
   </script>
 
-@if(session('success'))
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-        {{ session('success') }}
-    </div>
-@endif
+  @if(session('success'))
+  <script>
+      Swal.fire({
+          icon: 'success',
+          title: 'Berhasil!',
+          text: '{{ session('success') }}',
+          timer: 3000,
+          showConfirmButton: false
+      });
+  </script>
+  @endif
 
-@if($errors->any())
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-        <ul class="list-disc pl-5">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+  @if($errors->any())
+  <script>
+      Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          html: `{!! implode('<br>', $errors->all()) !!}`,
+      });
+  </script>
+  @endif
+
+
 
 @endsection
