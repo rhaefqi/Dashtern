@@ -18,6 +18,11 @@
                     <input type="text" id="nama_kelas" name="nama_kelas" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#163C3C]" required>
                 </div>
 
+                <div class="mb-4">
+                    <label for="bulan_mulai" class="block text-sm font-medium text-gray-700 mb-1">Bulan mulai</label>
+                    <input type="date" id="bulan_mulai" name="bulan_mulai" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#163C3C]" required>
+                </div>
+
                 {{-- Waktu Program Magang --}}
                 <div class="mb-6">
                     <label for="durasi" class="block text-sm font-medium text-gray-700 mb-1">Waktu Program Magang :</label>

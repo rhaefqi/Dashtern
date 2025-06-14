@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class KelasController extends Controller
 {
+
+    public function beranda(){
+        return view('admin.beranda');
+    }
     public function show($id)
     {
         $kelas = Kelas::findOrFail($id);
@@ -46,47 +50,51 @@ class KelasController extends Controller
         $dataNilai = $this->nilaiMahasiswa4BulanChart($kode);
         $mahasiswa = $this->nilaiMahasiswa4Bulan($kode);
         $kelas = Kelas::with(['pengumuman', 'tugas'])->where('kode_kelas', $kode)->first();
-        return view('admin.detailkelas', compact('kelas', 'pengumuman', 'tugas', 'mahasiswa'));
+        $tugas = TugasKelas::where('kode_kelas', $kode)->get();
+        $pengumuman = Pengumuman::where('kode_kelas', $kode)->get();
+        return view('admin.detailkelas', compact('kelas', 'pengumuman', 'tugas', 'mahasiswa', 'dataNilai'));
     }
 
     public function nilaiMahasiswa4BulanChart($kode_kelas)
     {
-        $mahasiswas = Mahasiswa::where('kode_kelas', $kode_kelas)->pluck('nim');
-        $tugas = TugasMahasiswa::whereIn('nim', $mahasiswas)->get();
+        $tugas = TugasMahasiswa::select('nim', 'status', 'jumlah', 'created_at')->get();
+
+        $kelas = Kelas::where('kode_kelas', $kode_kelas)->first();
+        $bulanMulai = Carbon::parse($kelas->bulan_mulai)->month;
 
         $nilaiMahasiswa = [];
 
-        $tugas->each(function ($item) use (&$nilaiMahasiswa) {
+        foreach ($tugas as $item) {
             $nim = $item->nim;
             $bulan = Carbon::parse($item->created_at)->month;
 
-            // Ambil hanya bulan 1, 2, 3 (jika kamu ingin 3 bulan pertama saja)
-            // dd($bulan);
-            if ($bulan == 1) $bulanKey = 'bulan1';
-            elseif ($bulan == 2) $bulanKey = 'bulan2';
-            elseif ($bulan == 3) $bulanKey = 'bulan3';
-            else return;
+            $offset = $bulan - $bulanMulai;
 
-            // Map status ke index array
+            // Hanya proses 3 bulan awal (bulan1, bulan2, bulan3)
+            if ($offset < 0 || $offset > 2) continue;
+
+            $bulanKey = 'bulan' . ($offset + 1); // bulan1, bulan2, atau bulan3
+
+            // Mapping status ke indeks array
             $statusMap = [
                 'kunjungan_bpu' => 0,  // BPU
-                'kunjungan_pu' => 1, // PU
+                'kunjungan_pu' => 1,   // PU
                 'laporan' => 2,
                 'video' => 3,
             ];
 
-            if (!isset($statusMap[$item->status])) return;
+            if (!isset($statusMap[$item->status])) continue;
 
             $statusIndex = $statusMap[$item->status];
 
-            // Inisialisasi kalau belum ada
+            // Inisialisasi array jika belum ada
             if (!isset($nilaiMahasiswa[$nim][$bulanKey])) {
                 $nilaiMahasiswa[$nim][$bulanKey] = [0, 0, 0, 0];
             }
 
-            // Tambahkan jumlah sesuai status
+            // Tambahkan jumlah ke indeks yang sesuai
             $nilaiMahasiswa[$nim][$bulanKey][$statusIndex] += $item->jumlah;
-        });
+        }
 
         return $nilaiMahasiswa;
     }
@@ -162,9 +170,10 @@ class KelasController extends Controller
             $counter++;
             $kode_kelas = $counter . $kode_dasar;
         }
-
+        // $bulan_mulai = $request->input('bulan_mulai');
         $kelas->kode_kelas = $kode_kelas;
         $kelas->nama = $request->input('nama_kelas');
+        $kelas->bulan_mulai = $request->input('bulan_mulai');
         $kelas->periode = $request->input('durasi');
         $kelas->save();
 

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Mahasiswa;
+use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Http\Request;
-use App\Models\Kelas;
+use Illuminate\Support\Facades\Request;
 
 class MahasiswaController extends Controller
 {
@@ -38,14 +39,15 @@ class MahasiswaController extends Controller
 
     public function index(Request $request)
     {
-        $query = $request->input('search'); // Ambil nilai dari input 'search'
+        // dd($request);
+        $search = $request->input('search'); // Ambil nilai dari input 'search'
 
-        if ($query) {
-            $mahasiswa = Mahasiswa::where('nama', 'LIKE', '%' . $query . '%')
-                                 ->orWhere('universitas', 'LIKE', '%' . $query . '%')
-                                 ->orWhere('fakultas', 'LIKE', '%' . $query . '%')
-                                 ->orWhere('prodi', 'LIKE', '%' . $query . '%')
-                                 ->orWhere('kelompok', 'LIKE', '%' . $query . '%')
+        if ($search) {
+            $mahasiswa = Mahasiswa::where('nama', 'LIKE', '%' . $search . '%')
+                                 ->orWhere('universitas', 'LIKE', '%' . $search . '%')
+                                 ->orWhere('fakultas', 'LIKE', '%' . $search . '%')
+                                 ->orWhere('prodi', 'LIKE', '%' . $search . '%')
+                                 ->orWhere('kelompok', 'LIKE', '%' . $search . '%')
                                  ->get();
         } else {
             $mahasiswa = Mahasiswa::all();

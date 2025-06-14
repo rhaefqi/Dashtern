@@ -307,17 +307,78 @@
                                 labels: ['BPU', 'PU', 'Laporan', 'Video'],
                                 datasets: [{
                                         label: 'Bulan 1',
-                                        data: {!! json_encode($dataNilai[$m->nim]['bulan1'] ?? [5, 2, 1, 1]) !!},
+                                        data: {!! json_encode($dataNilai[$m->nim]['bulan1'] ?? [0, 0, 0, 0]) !!},
                                         backgroundColor: 'rgba(54, 162, 235, 0.6)'
                                     },
                                     {
                                         label: 'Bulan 2',
-                                        data: {!! json_encode($dataNilai[$m->nim]['bulan2'] ?? [7, 2, 1, 0]) !!},
+                                        data: {!! json_encode($dataNilai[$m->nim]['bulan2'] ?? [0, 0, 0, 0]) !!},
                                         backgroundColor: 'rgba(255, 99, 132, 0.6)'
                                     },
                                     {
                                         label: 'Bulan 3',
-                                        data: {!! json_encode($dataNilai[$m->nim]['bulan3'] ?? [10, 1, 1, 1]) !!},
+                                        data: {!! json_encode($dataNilai[$m->nim]['bulan3'] ?? [0, 0, 0, 0]) !!},
+                                        backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                                    },
+                                ]
+                            }
+                        },
+                    @endforeach
+                ];
+
+                chartConfigs.forEach(config => {
+                    const canvas = document.getElementById(config.elementId);
+                    if (!canvas) return; // Safety check kalau chart belum ada
+
+                    const ctx = canvas.getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: config.data,
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Grafik Aktivitas Mahasiswa'
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+
+            {{-- <script>
+                const chartConfigs = [
+                    @foreach ($mahasiswa as $index => $m)
+                        {
+                            // @dump($mahasiswa);
+                            elementId: "chart-{{ $index }}",
+                            data: {
+                                labels: ['BPU', 'PU', 'Laporan', 'Video'],
+                                datasets: [{
+                                        label: 'Bulan 1',
+                                        data: {!! json_encode($mahasiswa[$m->nim]['bulan1'] ?? [0, 0, 0, 0]) !!},
+                                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                                    },
+                                    {
+                                        label: 'Bulan 2',
+                                        data: {!! json_encode($mahasiswa[$m->nim]['bulan2'] ?? [0, 0, 0, 0]) !!},
+                                        backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                                    },
+                                    {
+                                        label: 'Bulan 3',
+                                        data: {!! json_encode($mahasiswa[$m->nim]['bulan3'] ?? [0, 0, 0, 0]) !!},
                                         backgroundColor: 'rgba(75, 192, 192, 0.6)'
                                     },
                                 ]
@@ -344,7 +405,7 @@
                         }
                     });
                 });
-            </script>
+            </script> --}}
         @else
             <p>Tab tidak dikenali.</p>
         @endif
