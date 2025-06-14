@@ -41,10 +41,17 @@
                             <h3 class="text-lg font-bold">{{ $panduan->judul }}</h3>
                             <a href="{{ $panduan->link_drive }}" target="_blank" class="text-blue-600 hover:underline text-sm">Lihat File</a>
                         </div>
-                        <form action="{{ url('/admin/panduan/' . $panduan->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus panduan ini?')">
+                        <button type="button" 
+                            onclick="confirmDelete('{{ $panduan->id }}')" 
+                            class="text-red-600 hover:underline text-sm">
+                            Hapus
+                        </button>
+
+                        <form id="delete-form-{{ $panduan->id }}" 
+                            action="{{ url('/admin/panduan/' . $panduan->id) }}" 
+                            method="POST" style="display: none;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:underline text-sm">Hapus</button>
                         </form>
                     </li>
                 @endforeach
@@ -53,19 +60,38 @@
 
 
     @if(session('success'))
-        <div class="mt-6 p-4 bg-green-100 text-green-700 rounded-md">
-            {{ session('success') }}
-        </div>
+    <script>
+        Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ session('success') }}',
+        timer: 3000,
+        showConfirmButton: false
+        });
+    </script>
+    @endif
+
+    @if(session('error'))
+    <script>
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: '{{ session('error') }}',
+        timer: 3000,
+        showConfirmButton: false
+        });
+    </script>
     @endif
 
     @if($errors->any())
-        <div class="mt-6 p-4 bg-red-100 text-red-700 rounded-md">
-            <ul class="list-disc pl-5">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <script>
+        Swal.fire({
+        icon: 'error',
+        title: 'Terjadi Kesalahan',
+        html: `{!! implode('<br>', $errors->all()) !!}`,
+        });
+    </script>
     @endif
+
 </div>
 @endsection

@@ -46,7 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });
-
 // Halaman Login 1 (Pilihan role)
 Route::get('/', function () {
     return view('login-select');
@@ -109,12 +108,10 @@ Route::get('/kelas', [KelasController::class, 'indexMahasiswa'])->name('kelas');
 
 Route::get('/admin/kelas/{kode}', [KelasController::class, 'detail'])->name('admin.kelas.show');
 
-
 Route::resource('pengumuman', PengumumanController::class);
 Route::get('/progres', function () {
-    return view('progres');
+    return view('progres'); 
 })->name('progres');
-
 
 Route::get('/tentang', function () {
     return view('tentang');
