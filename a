@@ -1,0 +1,52 @@
+[33m33d648b[m[33m ([m[1;36mHEAD -> [m[1;32mrifqi[m[33m)[m merge
+[33m1e3bcf4[m Merge pull request #17 from rhaefqi/rud
+[33m2b26818[m Merge branch 'main' into rud
+[33m6ca7fc2[m Merge pull request #16 from rhaefqi/rifqi
+[33m45e9f0a[m Merge branch 'main' into rifqi
+[33m915e1f0[m Merge pull request #15 from rhaefqi/rud
+[33mc06780e[m[33m ([m[1;31morigin/rifqi[m[33m)[m login
+[33m2100ff5[m masukkan kode untuk enter kelas
+[33m6f0994e[m panduan sudah beres
+[33m2b031a4[m Merge branch 'main' of https://github.com/rhaefqi/Dashtern into rud
+[33mbd896cf[m memperbaharui bug
+[33m8dbcaf9[m Merge pull request #14 from rhaefqi/rifqi
+[33mc99af77[m Update backend kelas sampai ke chart
+[33m97d9134[m Merge branch 'main' of https://github.com/rhaefqi/Dashtern into rud
+[33m5d5f0f7[m Merge pull request #13 from rhaefqi/rifqi
+[33m4d5c4c8[m Merge branch 'main' into rifqi
+[33ma5c747e[m database
+[33m76182ef[m Merge pull request #12 from rhaefqi/syifa
+[33mfe4cbfc[m Merge branch 'main' into syifa
+[33m1c701eb[m Delete app/Models/Panduan.php
+[33m8e16c8b[m Delete database/migrations/2025_05_27_023831_create_panduans_table.php
+[33m7b98f16[m panduan admin
+[33m5231aa4[m Merge branch 'main' of https://github.com/rhaefqi/Dashtern into rud
+[33m79a22cc[m pembersihan
+[33m99f0921[m Merge pull request #11 from rhaefqi/megaputri
+[33mf3f8abe[m revisi profil,tentang,kelas
+[33m6dc0fe6[m Merge pull request #10 from rhaefqi/reinata
+[33m6999200[m Merge pull request #9 from rhaefqi/dewi
+[33m91b6c6a[m Kelas Admin Final
+[33m0ef250c[m Kelas Admin
+[33m9c55b19[m tentang
+[33mb11f208[m Merge pull request #8 from rhaefqi/megaputri
+[33m0c19458[m Merge branch 'main' into megaputri
+[33mf313613[m sidebar admin dan beranda admin
+[33m4965ab8[m Merge pull request #7 from rhaefqi/dila
+[33m976043f[m Merge branch 'main' into dila
+[33m8c61316[m profil dan password
+[33m62b12ee[m Merge pull request #6 from rhaefqi/syifa
+[33m11edbd3[m loginadmin
+[33m1573bb0[m Merge pull request #5 from rhaefqi/megaputri
+[33m54e9864[m Merge pull request #4 from rhaefqi/syifa
+[33m4bf3387[m halaman progres
+[33m4684280[m panduan
+[33m288acfb[m Merge pull request #3 from rhaefqi/syifa
+[33mf1854c9[m Merge branch 'main' into syifa
+[33m5eebdba[m loginpage
+[33me9be6ce[m Merge pull request #2 from rhaefqi/megaputri
+[33m65cc003[m Merge pull request #1 from rhaefqi/Dewi
+[33m16e87db[m beranda dan kelas
+[33m156bd79[m homepage
+[33m872954a[m[33m ([m[1;32mmain[m[33m)[m add tailwind
+[33ma751cb3[m first commit

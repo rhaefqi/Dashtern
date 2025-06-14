@@ -97,6 +97,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/kelas/create', [KelasController::class, 'create'])->name('kelas.create');
     Route::post('/kelas', [KelasController::class, 'store'])->name('kelas.store');
     Route::delete('/kelas/{kode_kelas}', [KelasController::class, 'destroy'])->name('kelas.delete');
+    Route::get('/admin', [KelasController::class, 'beranda'])->name('beranda');
 
     Route::post('pengumuman', [PengumumanController::class, 'store'])->name('pengumuman.store');
     Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.delete');
@@ -191,6 +192,32 @@ Route::post('admin/ganti-password', function (Request $request) {
 })->name('admin/profil.ganti-password.update');
 
 
-Route::get('/export', function () {
-    return Excel::download(new UsersExport, 'users.xlsx');
-});
+// Route::get('/tugas', function () {
+//     return view('tugas');
+// })->name('tugas');
+
+// Route::get('/tugas/{id}', function ($id) {
+//     return view('detail', ['id' => $id]);
+// })->name('tugas.detail');
+
+// routes/web.php
+// Route::get('/tugas/{id}', [TugasController::class, 'detail'])->name('tugas.detail');
+
+
+// Halaman form pengumpulan tugas
+Route::get('/form', function () {
+    return view('form');
+})->name('tugas.form');
+
+// Proses submit form
+Route::post('/form/submit', function (Request $request) {
+    // Validasi data
+    $request->validate([
+        'jumlah_akuisisi' => 'required|numeric|min:1',
+        'link_drive' => 'required|url',
+    ]);
+
+    // Simpan atau proses data sesuai kebutuhan, misalnya simpan ke database
+    // Untuk sekarang kita cukup redirect kembali dengan pesan sukses
+    return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
+})->name('tugas.submit');
