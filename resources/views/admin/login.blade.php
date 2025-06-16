@@ -16,12 +16,6 @@
             <h1 class="text-4xl font-bold">Dashtern</h1>
         </div>
 
-        @if (session('agah'))
-            <script>
-                {{ session('agah') }}
-            </script>
-        @endif
-
         <!-- Kanan: Form -->
         <div class="w-1/2 flex flex-col justify-center pl-8 text-white">
             <h2 class="text-3xl font-bold mb-6">Masuk Admin</h2>

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
+use App\Models\Panduan;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,11 +16,19 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
+    public function index()
+{
+    Carbon::setLocale('id'); // Tambahkan ini
+    $panduan = Panduan::latest()->get();
+    return view('nama_view', compact('panduan'));
+}
+
     /**
      * Bootstrap any application services.
      */
     public function boot(): void
     {
+        Carbon::setLocale('id');
         // Buat helper global di AppServiceProvider atau langsung di controller dan share ke semua view
         view()->composer('*', function ($view) {
             if (auth()->check()) {

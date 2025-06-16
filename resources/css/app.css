@@ -1,2 +1,6 @@
-@import "tailwindcss";
-@source "../views";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
