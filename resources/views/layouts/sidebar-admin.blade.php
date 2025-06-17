@@ -1,7 +1,7 @@
 
 
     <!-- Layout Utama -->
-    <div class="flex h-screen">
+    <div class="flex h-screen font-sans">
 
         <!-- Sidebar -->
         <aside class="w-64 bg-white flex flex-col items-center py-6 shadow-md">
@@ -10,7 +10,7 @@
                 <div class="w-10 h-10 scale-150">
                     <img src="/image/logo.png" alt="Logo" class="w-full h-full object-contain" />
                 </div>
-                <span class="ml-1 text-2xl font-bold text-[#145A5A]">Dashtern</span>
+                <span class="ml-1 text-2xl font-sans font-bold text-[#145A5A]">Dashtern</span>
             </div>
 
             <!-- Navigasi -->

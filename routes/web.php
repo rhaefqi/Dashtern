@@ -17,10 +17,8 @@ use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
-    // Halaman mahasiswa setelah login
-    Route::get('/beranda', function () {
-        return view('beranda');
-    })->name('beranda');
+
+    Route::get('/beranda', [MahasiswaController::class, 'indexMahasiswa'])->name('beranda');
 
     Route::get('/kelas', [KelasController::class, 'indexMahasiswa'])->name('kelas');
 
@@ -46,7 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });
-
 // Halaman Login 1 (Pilihan role)
 Route::get('/', function () {
     return view('login-select');
@@ -65,7 +62,7 @@ Route::get('/admin/beranda', function () {
     return view('admin.beranda'); 
 })->name('admin.beranda');
 
-Route::get('/panduan', [PanduanController::class, 'indexMahasiswa']);
+// Route::get('/panduan', [PanduanController::class, 'indexMahasiswa']);
 Route::get('/admin/panduan', [PanduanController::class, 'indexAdmin']);
 Route::post('/admin/panduan', [PanduanController::class, 'store']);
 Route::delete('/admin/panduan/{id}', [PanduanController::class, 'destroy']);
@@ -110,12 +107,10 @@ Route::get('/kelas', [KelasController::class, 'indexMahasiswa'])->name('kelas');
 
 Route::get('/admin/kelas/{kode}', [KelasController::class, 'detail'])->name('admin.kelas.show');
 
-
 Route::resource('pengumuman', PengumumanController::class);
 Route::get('/progres', function () {
-    return view('progres');
+    return view('progres'); 
 })->name('progres');
-
 
 Route::get('/tentang', function () {
     return view('tentang');

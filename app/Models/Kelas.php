@@ -18,4 +18,8 @@ class Kelas extends Model
     {
         return $this->hasMany(TugasKelas::class, 'kode_kelas', 'kode_kelas');
     }
+
+    protected $fillable = [
+        'kode_kelas',
+    ];
 }

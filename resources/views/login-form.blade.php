@@ -6,6 +6,7 @@
     <title>Login Dashtern</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <link rel="icon" href="{{ asset('image/logo.png') }}" type="image/png">
 </head>
 
 <body class="h-screen w-screen bg-cover bg-center flex items-center justify-center"

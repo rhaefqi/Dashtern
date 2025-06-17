@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Mahasiswa;
-use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\Kelas;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use App\Models\Panduan;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaController extends Controller
 {
+    public function indexMahasiswa()
+    {
+        $mahasiswa = Mahasiswa::where('nim', auth()->user()->username)->first();
+        $panduanTerbaru = Panduan::latest()->take(3)->get();
+
+        return view('beranda', compact('mahasiswa', 'panduanTerbaru'));
+    }
+
     public function joinClass(Request $request)
     {
         $request->validate([
@@ -80,7 +88,7 @@ class MahasiswaController extends Controller
 
         public function showGabungPage()
     {
-        $mahasiswa = auth()->user(); // pastikan user login sebagai mahasiswa
+        $mahasiswa = Mahasiswa::where('nim', auth()->user()->username)->first(); 
 
         $kelas = null;
         if ($mahasiswa && $mahasiswa->kode_kelas) {
